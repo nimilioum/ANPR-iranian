@@ -5,7 +5,7 @@ import cv2 as cv
 import os
 import  datetime
 import time
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"   # if you want to use gpu, delete this line
 
 # for converting encoded integer to string
 alphabet_dict = { "0" : '0' , '1':'1', '2':'2' , '3':'3','4' :'4' ,'5' :'5' ,'6' :'6','7':'7' ,'8':'8' ,'9':'9' ,'10':'BE' ,
@@ -21,7 +21,7 @@ model = load_model('cnn_classifier2.h5')
 
 # reads image and  gets characters out of it
 
-path = 'roya_bold/10BE21865_base211.png'
+path = 'roya_bold/10BE21865_base211.png'  #you can change path to whatever you want
 img = data_process.img_init(path)
 # print('segmenting...')
 characters = data_process.plate_segmenter(img,path)
@@ -38,7 +38,7 @@ result = ''
 for i in output :
     a = np.argmax(i)
     result += alphabet_dict[str(a)]         # converts encoded integer to corresponding string
-print("*** Plate number is : ", result,"***")
+print("***   Plate number is : ", result,"   ***")
 
 # estimate predicting latency
 end_time = datetime.datetime.now()
