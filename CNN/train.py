@@ -4,16 +4,15 @@ from sklearn.utils import shuffle
 from matplotlib import pyplot as plt
 from tensorflow import keras
 import cv2 as cv
-# import tensorflow as tf
+import tensorflow as tf
 from sklearn.preprocessing import OneHotEncoder , LabelEncoder
-import numpy
-# from keras.backend.tensorflow_backend import set_session
+import numpy , os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"   # if you want to use gpu, delete this line
+
 
 def train_init():
 
-    # config = tf.ConfigProto()
-    # config.gpu_options.per_process_gpu_memory_fraction = 0.3
-    # set_session(tf.Session(config=config))
+    
     # reads the pickle files and shuffles the data, encodes the labels and returns data and test X and y
     file = open('data.pickle', 'rb')
     data = numpy.load(file, allow_pickle=True)
@@ -93,15 +92,10 @@ def result_visual(history):
 
     plt.show()
 
-    # with open('history.json', 'wb') as f: # writes history in a json file to use later ( not sure when :D )
-    #     json.dump(bytes(history.history), f)
+    
 
 
 # triggers the training
 train_data, train_label, test_data, test_label = train_init()
-# i = 5433
-# cv.imshow('',train_data[i])
-# cv.waitKey(0)
-# print(train_label[i])
 history = train(train_data, train_label, test_data, test_label)
 result_visual(history)
